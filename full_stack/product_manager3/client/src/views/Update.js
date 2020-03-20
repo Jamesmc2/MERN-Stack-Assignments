@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { navigate } from '@reach/router';
+import ProductForm from '../components/productForm';
 
 
 export default props => {
@@ -17,44 +18,16 @@ export default props => {
                 setDescrip(res.data.descrip);
             })
     }, [id])
-    const updateProduct = e => {
-        e.preventDefault();
+    const updateProduct = product => {
         axios.put('http://localhost:8000/api/get_products/' + id +'/edit', {
-            title,
-            price,
-            descrip
+            title,price,descrip
         })
             .then(res => navigate(`/get_products/${id}`))
-            
-            
     }
     return (
         <div>
             <h1>Update a Product</h1>
-            <form onSubmit={updateProduct}>
-                <p>
-                    <label>Title</label><br />
-                    <input type="text" 
-                    name="title" 
-                    value={title} 
-                    onChange={(e) => { setTitle(e.target.value) }} />
-                </p>
-                <p>
-                    <label>Price</label><br />
-                    <input type="text" 
-                    name="price"
-                    value={price} 
-                    onChange={(e) => { setPrice(e.target.value) }} />
-                </p>
-                <p>
-                    <label>Description</label><br />
-                    <input type="text" 
-                    name="descrip"
-                    value={descrip} 
-                    onChange={(e) => { setDescrip(e.target.value) }} />
-                </p>
-                <input type="submit" />
-            </form>
+            <ProductForm onSubmitProp={updateProduct} initialTitle={title} initialPrice={price} initialDescrip={descrip}/>
         </div>
     )
 }

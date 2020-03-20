@@ -15,6 +15,7 @@ export default (props) => {
                 navigate('/get_products')
             })
     }
+
     return (
         <div>
             <h2>{product.title}</h2>
